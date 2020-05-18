@@ -43,54 +43,63 @@ This project is based on `TensorFlow 2` and has implemented representative convo
 - **CBAM** (2018) : [CBAM: Convolutional Block Attention Module](https://arxiv.org/pdf/1807.06521)
 - **SKNet** (2019) : [Selective Kernel Networks](https://arxiv.org/pdf/1903.06586)
 - **EfficientNet** (2019) : [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/pdf/1905.11946)
-  
+- **ResNeSt** (2020) : [ResNeSt: Split-Attention Networks](https://arxiv.org/pdf/2004.08955)  
+- **Other** :  
+  - **tricks** : [Bag of Tricks for Image Classification with Convolutional Neural Networks](https://arxiv.org/pdf/1812.01187)
+  - **NasNet** : [Learning Transferable Architectures for Scalable Image Recognition](https://arxiv.org/pdf/1707.07012)
+  - **AmoebaNet** : [Regularized Evolution for Image Classifier Architecture Search](https://arxiv.org/pdf/1802.01548)
   
 ## Result  
   
 Dataset: CIFAR-10  
 **No Pre-train**  
   
-| Network               | Params   | Batch Size | Epochs | Time Per Epoch | Accuracy(%) |   Remarks   |
-|:----------------------|:--------:|:----------:|:------:|:--------------:|:-----------:|:-----------:|
-| [AlexNet][1]          |  9.63M   |    128     |  100   |      36s       |    78.44    |             |
-| [NIN][2]              |  0.97M   |    128     |  100   |      36s       |    90.38    |             |
-| [VGG16][3]            |  33.69M  |    128     |  100   |      41s       |    92.34    |             |
-| [InceptionV1][4]      |  0.37M   |    128     |  100   |      42s       |    93.02    |  simplified |
-| [InceptionV2][5]      |  0.65M   |    128     |  100   |      51s       |    93.40    |  simplified |  
-| [InceptionV3][6]      |  1.17M   |    128     |  100   |      55s       |    94.20    |  simplified |
-| [InceptionV4][7]      |  2.57M   |    128     |  100   |      104s      |    94.55    |  simplified |
-| [ResNet18][8]         |  11.18M  |    128     |  150   |      39s       |    95.11    |   pre-act   |  
-| [ResNet50][9]         |  23.59M  |    128     |  100   |      88s       |    94.55    |   pre-act   |
-| [DilatedConv][10]     |  2.02M   |    128     |  100   |      92s       |    93.22    |             |
-| [SqueezeNet][11]      |  0.73M   |     32     |  100   |      35s       |    88.41    | light-weight|
-| [StochasticDepth][12] |  23.59M  |    128     |  100   |      92s       |    95.07    |   ResNet50  |
-| [FractalNet][13]      |  33.76M  |    128     |  100   |      48s       |    94.32    |             |  
-| [Xception][14]        |  1.36M   |    128     |  100   |      54s       |    94.56    |  simplified |  
-| [PyramidNet110][15]   |  9.90M   |    128     |  100   |      185s      |  **95.65**  |             |  
-| [ResNeXt50][16]       |  23.11M  |    128     |  100   |      210s      |    95.43    |   32×4d     |  
-| [WideResNet][17]      |  36.51M  |    128     |  150   |      138s      |  **95.94**  |   28-10     |  
-| [DenseNet100][18]     |  3.31M   |    128     |  150   |      159s      |  **95.57**  |   100-24    |  
-| [DenseNet121][19]     |  7.94M   |    128     |  100   |      110s      |    94.91    |   121-32    | 
-| [DualPathNet50][20]   |  21.05M  |    128     |  100   |      220s      |    95.44    |             |  
-| [DualPathNet92][21]   |  34.38M  |    128     |  100   |      370s      |  **95.78**  |             |  
-| [ShuffleNetV2][22]    |  1.28M   |    128     |  100   |      39s       |    92.41    | light-weight|  
-| [MobileNetV3][23]     |  4.21M   |    128     |  100   |      66s       |    94.85    | light-weight|  
-| [SE-ResNet50][24]     |  26.10M  |    128     |  100   |      110s      |    95.37    |             |  
-| [SE-ResNeXt50][25]    |  25.59M  |    128     |  120   |      270s      |  **96.12**  |    32×4d    |  
-| [SE-WideResNet][26]   |  36.86M  |    128     |  150   |      175s      |  **96.60**  |    28-10    |
-| [SENet154][27]        |  567.9M  |    128     |  100   |      ----      |    -----    |             |  
-| [CBAM-ResNet50][28]   |  26.12M  |    128     |  100   |      154s      |    95.01    |             |   
-| [SKNet][29]           |  6.73M   |    256     |  100   |      205s      |    -----    |             |   
-| [EfficientNetB0][30]  |  3.45M   |    64      |  100   |      390s      |    -----    |             | 
+| Network               | Params   | Batch Size | Epochs | Time Per Epoch | Total Time  |   Accuracy  |   Remarks   |
+|:----------------------|:--------:|:----------:|:------:|:--------------:|:-----------:|:-----------:|:-----------:|
+| [AlexNet][1]          |  9.63M   |    128     |  100   |      36s       |   1h        |    78.44%   |             |
+| [NIN][2]              |  0.97M   |    128     |  100   |      36s       |   1h        |    90.38%   |             |
+| [VGG16][3]            |  33.69M  |    128     |  100   |      41s       |   1h 8min   |    92.34%   |             |
+| [InceptionV1][4]      |  0.37M   |    128     |  100   |      42s       |   1h 10min  |    93.02%   |  simplified |
+| [InceptionV2][5]      |  0.65M   |    128     |  100   |      51s       |   1h 25min  |    93.40%   |  simplified |  
+| [InceptionV3][6]      |  1.17M   |    128     |  100   |      55s       |   1h 30min  |    94.20%   |  simplified |
+| [InceptionV4][7]      |  2.57M   |    128     |  100   |      104s      |   2h 53min  |    94.55%   |  simplified |
+| [ResNet18][8]         |  11.18M  |    128     |  150   |      39s       |   1h 38min  |    95.11%   |   pre-act   |  
+| [ResNet50][9]         |  23.59M  |    128     |  100   |      88s       |   2h 27min  |    94.55%   |   pre-act   |
+| [DilatedConv][10]     |  2.02M   |    128     |  100   |      92s       |   2h 33min  |    93.22%   |             |
+| [SqueezeNet][11]      |  0.73M   |     32     |  100   |      35s       |   58min     |    88.41%   | light-weight|
+| [StochasticDepth][12] |  23.59M  |    128     |  100   |      92s       |   2h 33min  |    95.07%   |   ResNet50  |
+| [FractalNet][13]      |  33.76M  |    128     |  100   |      48s       |   1h 20min  |    94.32%   |             |  
+| [Xception][14]        |  1.36M   |    128     |  100   |      54s       |   1h 30min  |    94.56%   |  simplified |  
+| [PyramidNet110][15]   |  9.90M   |    128     |  100   |      185s      |   5h 8min   |  **95.65%** |             |  
+| [ResNeXt50][16]       |  23.11M  |    128     |  100   |      210s      |   5h 50min  |    95.43%   |   32×4d     |  
+| [WideResNet][17]      |  36.51M  |    128     |  150   |      138s      |   5h 45min  |  **95.94%** |   28-10     |  
+| [DenseNet100][18]     |  3.31M   |    128     |  150   |      159s      |   6h 38min  |  **95.57%** |   100-24    |  
+| [DenseNet121][19]     |  7.94M   |    128     |  100   |      110s      |   3h 3min   |    94.91%   |   121-32    | 
+| [DualPathNet50][20]   |  21.05M  |    128     |  100   |      220s      |   6h 7min   |    95.44%   |             |  
+| [DualPathNet92][21]   |  34.38M  |    128     |  100   |      370s      |   10h 17min |  **95.78%** |             |  
+| [ShuffleNetV2][22]    |  1.28M   |    128     |  100   |      39s       |   1h 5min   |    92.41%   | light-weight|  
+| [MobileNetV3][23]     |  4.21M   |    128     |  100   |      66s       |   1h 50min  |    94.85%   | light-weight|  
+| [SE-ResNet50][24]     |  26.10M  |    128     |  100   |      110s      |   3h 3min   |    95.37%   |             |  
+| [SE-ResNeXt50][25]    |  25.59M  |    128     |  120   |      270s      |   9h        |  **96.12%** |    32×4d    |  
+| [SE-WideResNet][26]   |  36.86M  |    128     |  150   |      175s      |   7h 18min  |  **96.60%** |    28-10    |
+| [SENet154][27]        |  567.9M  |    128     |  100   |      ----      |    -----    |    -----    |             |  
+| [CBAM-ResNet50][28]   |  26.12M  |    128     |  100   |      154s      |   4h 17min  |    95.01%   |             |   
+| [SKNet][29]           |  6.73M   |    256     |  100   |      205s      |    -----    |    -----    |             |   
+| [EfficientNetB0][30]  |  3.45M   |    64      |  100   |      390s      |    -----    |    -----    |             | 
+   
+**SOTA : SE-WideResNet (Acc. : 96.60%)**  
   
-  
-  
-remarks:
+Remarks:
  - simplified : replace the stem structure with one convolutional layer, channels are divided by 4
  - pre-act : ResNet V2 (full pre-activation)  
  - light-weight : smaller efficient CNN architecture which is suitable for mobile and embedded vision applications
    
-   
+## Implement Detail   
+details of the SOTA network :
+  - Architecture : SE-WideResNet (28-10)
+  - Data augment
+  - Learning rate
+  
 ## License  
 [MIT License](LICENSE)
 
