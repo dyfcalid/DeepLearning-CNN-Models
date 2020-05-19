@@ -1,4 +1,5 @@
 # DeepLearning-CNN-Models
+![](https://img.shields.io/badge/DeepLearning-TensorFlow_2-orange.svg) 　![](https://img.shields.io/badge/Dataset-CIFAR--10-blue.svg) 　![License](https://img.shields.io/badge/License-MIT-brightgreen.svg)  
   
 ## Introduction
 This project is based on `TensorFlow 2` and has implemented representative convolutional neural networks in recent years, which are trained on the `CIFAR-10` dataset and suitable for image classification tasks. The basic architecture of the network refers to the **original papers** on `arXiv` as much as possible, and some of them have been modified for the CIFAR-10 dataset. The best accuracy is **96.60%**.
@@ -8,6 +9,9 @@ This project is based on `TensorFlow 2` and has implemented representative convo
 - TensorFlow-gpu 2.1  
 - Jupyter Notebook  
 - GPU: **NVIDIA TESLA P100**  
+  
+## CIFAR-10    
+  The CIFAR-10 dataset consists of 60000 32x32 colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images.
   
 ## Papers
   
@@ -46,6 +50,7 @@ This project is based on `TensorFlow 2` and has implemented representative convo
 - **ResNeSt** (2020) : [ResNeSt: Split-Attention Networks](https://arxiv.org/pdf/2004.08955)  
 - **Other** :  
   - **tricks** : [Bag of Tricks for Image Classification with Convolutional Neural Networks](https://arxiv.org/pdf/1812.01187)
+  - **Hyperbolic-Tangent decay** : [Stochastic Gradient Descent with Hyperbolic-Tangent Decay on Classification](https://arxiv.org/pdf/1806.01593)
   - **NasNet** : [Learning Transferable Architectures for Scalable Image Recognition](https://arxiv.org/pdf/1707.07012)
   - **AmoebaNet** : [Regularized Evolution for Image Classifier Architecture Search](https://arxiv.org/pdf/1802.01548)
   
@@ -89,20 +94,35 @@ Dataset: CIFAR-10
    
 **SOTA : SE-WideResNet (Acc. : 96.60%)**  
   
-Remarks:
+Remarks :
  - simplified : replace the stem structure with one convolutional layer, channels are divided by 4
  - pre-act : ResNet V2 (full pre-activation)  
  - light-weight : smaller efficient CNN architecture which is suitable for mobile and embedded vision applications
    
 ## Implement Detail   
-details of the SOTA network :
-  - Architecture : SE-WideResNet (28-10)
-  - Data augment
-  - Learning rate
+Details of the SOTA network :
+  - Architecture : 
+    - WideResNet (depth=28, k=10)
+    - **Squeeze-and-Excitation Block**
+  - Pre-process : Z-score normalization
+  - Data augment : Rotation, Shift, Shear, Zoom, HorizontalFlip, **Mixup**
+  - Learning rate : 
+    - Initial learning rate : 0.1
+    - Learning rate decay : Hyperbolic-Tangent Decay (-6,3)  
+    - WarmingUp
+  - Weight decay : 0.0001
+  - Weight initial : he_normal
+  - Activation : replace relu with **swish**
+  - Dropout : 0.2
+  - Optimizer : SGDM with nesterov
+  - **Label smoothing** : 0.1
+  - Gradient clipping
+  
   
 ## License  
-[MIT License](LICENSE)
-
+[MIT License](LICENSE)  
+  
+*`Copyright (c) 2020 ZZH`*
   
   
 [1]:https://nbviewer.jupyter.org/github/dyfcalid/DeepLearning-CNN-Models/blob/master/AlexNet/cifar10_AlexNet.ipynb
@@ -135,5 +155,4 @@ details of the SOTA network :
 [28]:https://nbviewer.jupyter.org/github/dyfcalid/DeepLearning-CNN-Models/blob/master/CBAM/cifar10_CBAM-ResNet50.ipynb
 [29]:https://nbviewer.jupyter.org/github/dyfcalid/DeepLearning-CNN-Models/blob/master/SKNet/cifar10_SKNet50.ipynb
 [30]:https://nbviewer.jupyter.org/github/dyfcalid/DeepLearning-CNN-Models/blob/master/EfficientNet/cifar10_EfficientNetB0.ipynb  
-  
   
