@@ -2,7 +2,7 @@
 ![](https://img.shields.io/badge/DeepLearning-TensorFlow_2-orange.svg) 　![](https://img.shields.io/badge/Dataset-CIFAR--10-blue.svg) 　![License](https://img.shields.io/badge/License-MIT-brightgreen.svg)  
   
 ## Introduction
-This project is based on `TensorFlow 2` and has implemented representative convolutional neural networks in recent years, which are trained on the `CIFAR-10` dataset and suitable for image classification tasks. The basic architecture of the network refers to the **original papers** on `arXiv` as much as possible, and some of them have been modified for the CIFAR-10 dataset. The best accuracy is **96.60%**.
+This project is based on `TensorFlow 2` and has implemented representative convolutional neural networks in recent years, which are trained on the `CIFAR-10` dataset and suitable for image classification tasks. The basic architecture of the network refers to the **original papers** on `arXiv` as much as possible, and some of them have been modified for the CIFAR-10 dataset. The best accuracy is **97.05%**.
   
 ## Environment 
 - Python 3.7  
@@ -87,12 +87,13 @@ Dataset: CIFAR-10
 | [SE-ResNet50][24]     |  26.10M  |    128     |  100   |      110s      |   3h 3min   |    95.37%   |             |  
 | [SE-ResNeXt50][25]    |  25.59M  |    128     |  120   |      270s      |   9h        |  **96.12%** |    32×4d    |  
 | [SE-WideResNet][26]   |  36.86M  |    128     |  150   |      175s      |   7h 18min  |  **96.60%** |    28-10    |
+|  SE-WideResNet_2      |  36.86M  |    128     |  220   |      143s      |   8h 45min  |  **97.05%** | more tricks |
 | [SENet154][27]        |  567.9M  |    128     |  100   |      ----      |    -----    |    -----    |             |  
 | [CBAM-ResNet50][28]   |  26.12M  |    128     |  100   |      154s      |   4h 17min  |    95.01%   |             |   
 | [SKNet][29]           |  6.73M   |    256     |  100   |      205s      |    -----    |    -----    |             |   
 | [EfficientNetB0][30]  |  3.45M   |    64      |  100   |      390s      |    -----    |    -----    |             | 
    
-**SOTA : SE-WideResNet (Acc. : 96.60%)**  
+**SOTA : SE-WideResNet (more tricks) (Acc. : 97.05%)**  
   
 Remarks :
  - simplified : replace the stem structure with one convolutional layer, channels are divided by 4
@@ -102,18 +103,19 @@ Remarks :
 ## Implement Detail   
 Details of the SOTA network :
   - Architecture : 
-    - WideResNet (depth=28, k=10)
+    - WideResNet (depth=28, k=10) (improved)
     - **Squeeze-and-Excitation Block**
+  - Policy : mixed_precision (**FP16**)
   - Pre-process : Z-score normalization
-  - Data augment : Rotation, Shift, Shear, Zoom, HorizontalFlip, **Mixup**
+  - Data augment : Rotation, Shift, Shear, Zoom, HorizontalFlip, **Mixup**(alpha=0.2)
   - Learning rate : 
     - Initial learning rate : 0.1
-    - Learning rate decay : Hyperbolic-Tangent Decay (-6,3)  
+    - Learning rate decay : **Hyperbolic-Tangent Decay** (-6,3)  
     - WarmingUp
   - Weight decay : 0.0001
   - Weight initial : he_normal
   - Activation : replace relu with **swish**
-  - Dropout : 0.2
+  - Dropout : 0.1
   - Optimizer : SGDM with nesterov
   - **Label smoothing** : 0.1
   - Gradient clipping
